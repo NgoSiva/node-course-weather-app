@@ -57,14 +57,14 @@ const renderWeather = (data) => {
     weatherWidgetDescription.textContent = main
     weatherWidgetTempMin.textContent = Math.round(temp_min)
     weatherWidgetTempMax.textContent = Math.round(temp_max)
-    weatherWidgetIcon.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+    weatherWidgetIcon.src = "https://openweathermap.org/img/wn/" + icon + "@2x.png"
   }
 }
 
 if (localData) {
   renderWeather(JSON.parse(localData))
 } else {
-  fetch("http://ip-api.com/json/")
+  fetch("https://ip-api.com/json/")
     .then((response) => {
       response.json().then((data) => {
         getWeather(data.city).then((data) => {
