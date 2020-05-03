@@ -64,7 +64,7 @@ const renderWeather = (data) => {
 if (localData) {
   renderWeather(JSON.parse(localData))
 } else {
-  fetch("https://ip-api.com/json/")
+  fetch("https://ipapi.co/json")
     .then((response) => {
       response.json().then((data) => {
         getWeather(data.city).then((data) => {
