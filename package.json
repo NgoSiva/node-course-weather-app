@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js -e js,hbs"
+    "dev": "env-cmd -f ./.dev.env nodemon src/app.js -e js,hbs"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "postman-request": "^2.88.1-postman.22"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "nodemon": "^2.0.3"
   }
 }

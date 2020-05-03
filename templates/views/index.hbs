@@ -1,28 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/img/weather.png">
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>Weather</title>
-    </head>
-    <body>
-        <div class="main-content">
-            {{>header}}
 
-            <p>Use this site to get your weather!</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Weather</title>
+</head>
 
-            <form>
-                <input placeholder="Location">
-                <button>Search</button>
-            </form>
+<body>
+    <div class="main-content">
+        {{>header}}
 
-            <p id="message-1"></p>
-            <p id="message-2"></p>
+        <p>Use this site to get your weather!</p>
+
+        <form>
+            <input placeholder="Location">
+            <button>Search</button>
+        </form>
+
+        <div class="weather-widget loading">
+            <p id="message"></p>
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="weather-widget__content">
+                <p class="weather-widget__location"></p>
+                <div class="weather-widget__forecast">
+                    <div class="weather-widget__icon"><img src="" alt="forecast icon"></div>
+                    <div>
+                        <div>
+                            <p class="weather-widget__temp"><span></span>°C</p>
+                            <p class="weather-widget__description"></p>
+                        </div>
+                        <div>
+                            <p class="weather-widget__tmin">min: <span></span>°C</p>
+                            <p class="weather-widget__tmax">max: <span></span>°C</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {{>footer}}
+    </div>
+    {{>footer}}
 
-        <script src="/js/app.js"></script>
-    </body>
+    <script src="/js/app.js"></script>
+</body>
+
 </html>
