@@ -11,7 +11,19 @@ const weatherWidgetTemp = document.querySelector(".weather-widget__temp span")
 const weatherWidgetTempMin = document.querySelector(".weather-widget__tmin span")
 const weatherWidgetTempMax = document.querySelector(".weather-widget__tmax span")
 
-const localData = localStorage.getItem("forecast")
+const localData = sessionStorage.getItem("forecast")
+const sessionDate = new Date(sessionStorage.getItem("date"))
+
+const isToday = (date) => {
+  const today = new Date()
+  if (!!date) {
+    return date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+  }
+  return false
+}
+
 
 const getWeather = async (location) => {
   try {
@@ -52,6 +64,8 @@ const renderWeather = (data) => {
       }
     } = data
 
+    sessionStorage.setItem("forecast", JSON.stringify(data))
+    sessionStorage.setItem('date', new Date().toJSON())
     weatherWidgetLocation.textContent = location
     weatherWidgetTemp.textContent = Math.round(temp)
     weatherWidgetDescription.textContent = main
@@ -61,14 +75,16 @@ const renderWeather = (data) => {
   }
 }
 
-if (localData) {
+if (localData && isToday(sessionDate)) {
   renderWeather(JSON.parse(localData))
 } else {
+  sessionStorage.clear()
   fetch("https://ipapi.co/json")
     .then((response) => {
       response.json().then((data) => {
         getWeather(data.city).then((data) => {
-          localStorage.setItem("forecast", JSON.stringify(data))
+          sessionStorage.setItem("forecast", JSON.stringify(data))
+          sessionStorage.setItem('date', new Date().toJSON())
           renderWeather(data)
         })
       })
@@ -88,6 +104,5 @@ weatherForm.addEventListener("submit", async (e) => {
   weatherWidget.classList.remove("show-weather")
   weatherWidget.classList.add("loading")
   const data = await getWeather(location)
-  localStorage.setItem("forecast", JSON.stringify(data))
   renderWeather(data)
 })

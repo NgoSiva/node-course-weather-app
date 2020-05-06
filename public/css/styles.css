@@ -42,7 +42,7 @@ header a {
     color: var(--grey);
     margin-right: 16px;
     text-decoration: none;
-    transition: var(--transition);
+    transition: color 0.3s ease;
 }
 
 header a:hover {
@@ -127,6 +127,12 @@ button:hover {
 
 .weather-widget__icon {
     margin-right: 10px;
+}
+
+.weather-widget__icon img {
+  display: inline-block;
+  max-width: 100px;
+  max-height: 100px;
 }
 
 .weather-widget__forecast > div:nth-child(2) {
