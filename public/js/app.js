@@ -1,6 +1,6 @@
 const weatherForm = document.querySelector("form")
 const search = document.querySelector("input")
-const messageOne = document.querySelector("#message")
+const message = document.querySelector("#message")
 const loader = document.querySelector(".lds-roller")
 const weatherWidget = document.querySelector(".weather-widget")
 const weatherWidgetContent = document.querySelector(".weather-widget__content")
@@ -10,6 +10,7 @@ const weatherWidgetIcon = document.querySelector(".weather-widget__icon img")
 const weatherWidgetTemp = document.querySelector(".weather-widget__temp span")
 const weatherWidgetTempMin = document.querySelector(".weather-widget__tmin span")
 const weatherWidgetTempMax = document.querySelector(".weather-widget__tmax span")
+const geolocationButton = document.querySelector(".button__geolocation")
 
 const localData = sessionStorage.getItem("forecast")
 const sessionDate = new Date(sessionStorage.getItem("date"))
@@ -39,7 +40,7 @@ const renderWeather = (data) => {
   weatherWidget.classList.remove("loading")
   if (data.error) {
     weatherWidget.classList.remove("loading")
-    messageOne.textContent = data.error
+    message.textContent = data.error
   } else {
     weatherWidget.classList.add("show-weather")
     const {
@@ -91,18 +92,38 @@ if (localData && isToday(sessionDate)) {
     })
     .catch((e) => {
       weatherWidget.classList.remove("loading")
-      messageOne.textContent = "Choose Location"
+      message.textContent = "Choose Location"
       console.log(e)
     })
+}
+
+const getPosition = (options) => {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
 }
 
 weatherForm.addEventListener("submit", async (e) => {
   e.preventDefault()
 
   const location = search.value
-  messageOne.textContent = ""
+  message.textContent = ""
   weatherWidget.classList.remove("show-weather")
   weatherWidget.classList.add("loading")
   const data = await getWeather(location)
   renderWeather(data)
+})
+
+geolocationButton.addEventListener("click", async () => {
+  message.textContent = ""
+  weatherWidget.classList.remove("show-weather")
+  weatherWidget.classList.add("loading")
+  try {
+    const { coords: { latitude, longitude } } = await getPosition();
+    const data = await getWeather(longitude + "," + latitude)
+    renderWeather(data)
+  } catch (e) {
+    weatherWidget.classList.remove("loading")
+    message.textContent = e.message
+  }
 })

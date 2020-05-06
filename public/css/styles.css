@@ -76,6 +76,32 @@ button:hover {
     color: var(--black);
 }
 
+.button__geolocation {
+  display: inline-block;
+  border: 1px solid var(--black);
+  background-color: var(--black);
+  cursor: pointer;
+  vertical-align: bottom;
+  height: 34px;
+  transition: var(--transition);
+}
+
+.button__geolocation:hover {
+  background-color: white;
+  color: var(--black);
+}
+
+.button__geolocation img {
+  display: inline-block;
+  filter: invert(100%);
+  height: 100%;
+  padding: 4px;
+}
+
+.button__geolocation:hover img {
+  filter: none;
+ }
+
 #message {
     position: absolute;
 }
