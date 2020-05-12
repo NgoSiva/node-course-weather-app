@@ -54,7 +54,8 @@ header a:hover {
 }
 
 form {
-    max-width: 380px;
+  display: inline-block;
+  max-width: 230px;
 }
 
 input {
@@ -62,7 +63,7 @@ input {
     padding: 8px;
 }
 
-button {
+form button {
     cursor: pointer;
     border: 1px solid var(--black);
     background-color: var(--black);
@@ -71,9 +72,14 @@ button {
     transition: var(--transition);
 }
 
-button:hover {
+form button:hover:not([disabled]) {
     background-color: white;
     color: var(--black);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .button__geolocation {
@@ -86,7 +92,7 @@ button:hover {
   transition: var(--transition);
 }
 
-.button__geolocation:hover {
+.button__geolocation:hover:not([disabled]) {
   background-color: white;
   color: var(--black);
 }
@@ -98,7 +104,7 @@ button:hover {
   padding: 4px;
 }
 
-.button__geolocation:hover img {
+.button__geolocation:hover:not([disabled]) img {
   filter: none;
  }
 

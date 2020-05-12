@@ -1,3 +1,5 @@
+const geolocationButton = document.querySelector(".button__geolocation")
+const searchButton = document.querySelector("button")
 const weatherWidget = document.querySelector(".weather-widget")
 const weatherWidgetLocation = document.querySelector(".weather-widget__location")
 const weatherWidgetDescription = document.querySelector(".weather-widget__description")
@@ -28,8 +30,9 @@ export const isToday = (date) => {
 
 export const renderWeather = (data) => {
   weatherWidget.classList.remove("loading")
+  geolocationButton.removeAttribute("disabled")
+  searchButton.removeAttribute("disabled")
   if (data.error) {
-    weatherWidget.classList.remove("loading")
     message.textContent = data.error
   } else {
     weatherWidget.classList.add("show-weather")
